@@ -40,6 +40,9 @@ jobs:
       with:
         go-version: 1.22
 
+    - name: Clear Go caches
+      run: go clean -cache -modcache -testcache || true
+
     - name: Install golangci-lint (v1.57.1)
       run: |
         curl -sSfL https://github.com/golangci/golangci-lint/releases/download/v1.57.1/golangci-lint-1.57.1-linux-amd64.tar.gz \
@@ -52,6 +55,7 @@ jobs:
 
     - name: Run golangci-lint
       run: golangci-lint run --timeout=5m ./...
+
 
   push:
     runs-on: ubuntu-latest
